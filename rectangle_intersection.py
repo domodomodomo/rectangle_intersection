@@ -148,39 +148,23 @@ class RectangleSet(object):
 if __debug__:
     def _sub(lst1, lst2):
         lst1 = lst1.copy()
-        lst2 = lst2.copy()
         for element in lst2:
-            if element in lst1:
+            try:
                 lst1.remove(element)
+            except ValueError:
+                continue
         return lst1
 
     def _equal(lst1, lst2):
         lst1 = lst1.copy()
-        lst2 = lst2.copy()
-        # lst2 - lst1
         for element in lst2:
-            exists = _remove(lst1, element)
-            if not exists:
+            try:
+                lst1.remove(element)
+            except ValueError:
                 return False
         if lst1:
             return False
         return True
-
-    def _remove(lst, element):
-        new_lst = []
-        element_exists = False
-        while lst:
-            e = lst.pop()
-            if e == element:
-                del e
-                element_exists = True
-                break
-            else:
-                new_lst.append(e)
-        new_lst.reverse()
-        lst.extend(new_lst)
-        del new_lst
-        return element_exists
 
 
 #
